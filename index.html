@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="./foundation.min.css">
+    <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <!-- <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"> -->
+                <div class="healthbar text-center" :style="{'background-color': green, margin: 0, color: white, width: youWidth + '%'}">
+                    {{ youHealth }}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" :style="{'background-color': green, margin: 0, color: white, width: monWidth + '%'}">
+                    {{ monHealth }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls"  v-if="showButtons">
+        <div class="small-12 columns">
+            <button id="start-game" @click="showButtons = !showButtons">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls"  v-else>
+        <div class="small-12 columns">
+            <button id="attack" @click="attack()">ATTACK</button>
+            <button id="special-attack" @click="specialAttack()">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal()">HEAL</button>
+            <button id="give-up" @click="showButtons = !showButtons, giveup()">GIVE UP</button>
+        </div>
+    </section>
+    <section v-show="showText" class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="message in messages" :key="message" :class="{'player-turn': message.you, 'monster-turn': message.mon}">
+                    {{ message.you }}
+                    {{ message.mon }}
+                </li>
+            </ul>
+        </div>
+    </section>
+   
+</div>
+<script src="./script.js"></script>
+</body>
+</html>
